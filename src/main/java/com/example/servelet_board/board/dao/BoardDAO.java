@@ -14,12 +14,15 @@ public class BoardDAO {
     private static PreparedStatement boardInsert = null;
     private static PreparedStatement boardFindAll =  null;
     private static PreparedStatement boardDetail =  null;
+    private static PreparedStatement boardDelete =  null;
 
     static {
         try {
             boardInsert = conn.prepareStatement("insert into boards (title, content, writer, dueDate) values (?, ?, ?, ?)");
             boardFindAll = conn.prepareStatement("select * from boards");
             boardDetail = conn.prepareStatement("select * from boards where id = ?");
+            boardDelete = conn.prepareStatement("delete from boards where id = ?");
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -93,6 +96,25 @@ public class BoardDAO {
         return boardVO;
 
     }
+
+
+
+    public int boardDelete(Long id){
+        int updated = 0;
+
+        try{
+            boardDelete.setLong(1, id);
+
+            updated = boardDelete.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return updated;
+    }
+
 
 
 }

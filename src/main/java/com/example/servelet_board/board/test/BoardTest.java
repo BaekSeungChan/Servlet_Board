@@ -56,4 +56,10 @@ public class BoardTest {
         System.out.println(boardVO);
     }
 
+    @Test
+    public void boardDelete(){
+        int updated = boardDAO.boardDelete(7L);
+        System.out.println(updated);
+    }
+
 }
