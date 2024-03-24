@@ -62,4 +62,20 @@ public class BoardTest {
         System.out.println(updated);
     }
 
+    @Test
+    public void boardUpdate(){
+        Long id = 8L;
+
+        BoardVO boardVO = BoardVO.builder()
+                .title("update")
+                .content("test222211111")
+                .writer("백승찬")
+                .build();
+
+        int result = boardDAO.boardUpdate(boardVO, id);
+
+        System.out.println(result);
+    }
+
+
 }

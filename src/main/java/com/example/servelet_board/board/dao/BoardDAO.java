@@ -15,6 +15,7 @@ public class BoardDAO {
     private static PreparedStatement boardFindAll =  null;
     private static PreparedStatement boardDetail =  null;
     private static PreparedStatement boardDelete =  null;
+    private static PreparedStatement boardUpdate = null;
 
     static {
         try {
@@ -22,6 +23,7 @@ public class BoardDAO {
             boardFindAll = conn.prepareStatement("select * from boards");
             boardDetail = conn.prepareStatement("select * from boards where id = ?");
             boardDelete = conn.prepareStatement("delete from boards where id = ?");
+            boardUpdate = conn.prepareStatement("update boards set title = ? , content = ?, dueDate = ? where id = ?");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -112,6 +114,23 @@ public class BoardDAO {
             throw new RuntimeException(e);
         }
 
+        return updated;
+    }
+
+    public int boardUpdate(BoardVO boardVO, Long id){
+        int updated = 0;
+
+        try{
+            boardUpdate.setString(1, boardVO.getTitle());
+            boardUpdate.setString(2, boardVO.getContent());
+            boardUpdate.setDate(3, Date.valueOf(LocalDate.now()));
+            boardUpdate.setLong(4, id);
+
+            updated = boardUpdate.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return updated;
     }
 
