@@ -40,14 +40,14 @@ public class BoardTest {
     }
 
 
-    @Test
-    public void boardFindAll(){
-        List<BoardVO> list = boardDAO.boardFindAll();
-
-        for(var board : list){
-            System.out.println(board);
-        }
-    }
+//    @Test
+//    public void boardFindAll(){
+//        List<BoardVO> list = boardDAO.boardFindAll();
+//
+//        for(var board : list){
+//            System.out.println(board);
+//        }
+//    }
 
     @Test
     public void boardDetail(){

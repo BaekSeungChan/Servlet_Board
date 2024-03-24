@@ -19,8 +19,8 @@ public class BoardService {
         return updated;
     }
 
-    public List<BoardDTO> boardFindAll(){
-        List<BoardVO> boards = boardDAO.boardFindAll();
+    public List<BoardDTO> boardFindAll(String searchKey){
+        List<BoardVO> boards = boardDAO.boardFindAll(searchKey);
 
         return boards.stream().map(vo -> modelMapper.map(vo, BoardDTO.class))
                 .collect(Collectors.toList());

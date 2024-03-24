@@ -13,6 +13,7 @@ public class BoardDAO {
     private static Connection conn = DBConnectionUtil.DATABASE.getConnection();
     private static PreparedStatement boardInsert = null;
     private static PreparedStatement boardFindAll =  null;
+    private static PreparedStatement boardSearch =  null;
     private static PreparedStatement boardDetail =  null;
     private static PreparedStatement boardDelete =  null;
     private static PreparedStatement boardUpdate = null;
@@ -21,6 +22,7 @@ public class BoardDAO {
         try {
             boardInsert = conn.prepareStatement("insert into boards (title, content, writer, dueDate) values (?, ?, ?, ?)");
             boardFindAll = conn.prepareStatement("select * from boards");
+            boardSearch = conn.prepareStatement("select * from boards where title like ? ");
             boardDetail = conn.prepareStatement("select * from boards where id = ?");
             boardDelete = conn.prepareStatement("delete from boards where id = ?");
             boardUpdate = conn.prepareStatement("update boards set title = ? , content = ?, dueDate = ? where id = ?");
@@ -47,12 +49,20 @@ public class BoardDAO {
         return updated;
     }
 
-    public List<BoardVO> boardFindAll() {
+    // 특정 검색 or 전체 검색
+    public List<BoardVO> boardFindAll(String searchKey) {
         List<BoardVO> list = new ArrayList<>();
 
         try{
+            ResultSet rs = null;
 
-            ResultSet rs = boardFindAll.executeQuery();
+            if(searchKey !=null && !searchKey.isEmpty()){
+                boardSearch.setString(1, "%" + searchKey + "%");
+                rs = boardSearch.executeQuery();
+
+            } else {
+                rs = boardFindAll.executeQuery();
+            }
 
             while (rs.next()){
                 BoardVO boardVO = BoardVO.builder()

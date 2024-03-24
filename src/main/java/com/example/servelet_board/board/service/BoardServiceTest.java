@@ -25,7 +25,8 @@ public class BoardServiceTest {
 
     @Test
     public void boardFindAll(){
-        List<BoardDTO> list = boardService.boardFindAll();
+        String searchKey = "test1";
+        List<BoardDTO> list = boardService.boardFindAll(searchKey);
 
         for(var board : list){
             System.out.println(board);
