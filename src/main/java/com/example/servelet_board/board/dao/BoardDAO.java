@@ -13,11 +13,13 @@ public class BoardDAO {
     private static Connection conn = DBConnectionUtil.DATABASE.getConnection();
     private static PreparedStatement boardInsert = null;
     private static PreparedStatement boardFindAll =  null;
+    private static PreparedStatement boardDetail =  null;
 
     static {
         try {
             boardInsert = conn.prepareStatement("insert into boards (title, content, writer, dueDate) values (?, ?, ?, ?)");
             boardFindAll = conn.prepareStatement("select * from boards");
+            boardDetail = conn.prepareStatement("select * from boards where id = ?");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,5 +67,32 @@ public class BoardDAO {
 
         return list;
     }
+
+
+    public BoardVO boardDetail(Long id){
+        BoardVO boardVO = null;
+        try{
+            boardDetail.setLong(1, id);
+            ResultSet rs = boardDetail.executeQuery();
+
+            if(rs.next()){
+                boardVO = BoardVO.builder()
+                        .id(rs.getLong("id"))
+                        .title(rs.getString("title"))
+                        .content(rs.getString("content"))
+                        .writer(rs.getString("writer"))
+                        .dueDate(rs.getDate("dueDate").toLocalDate())
+                        .build();
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return boardVO;
+
+    }
+
 
 }

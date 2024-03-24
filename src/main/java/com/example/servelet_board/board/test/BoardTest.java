@@ -49,4 +49,11 @@ public class BoardTest {
         }
     }
 
+    @Test
+    public void boardDetail(){
+        BoardVO boardVO  = boardDAO.boardDetail(1L);
+
+        System.out.println(boardVO);
+    }
+
 }
