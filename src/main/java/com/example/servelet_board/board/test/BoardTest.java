@@ -5,10 +5,12 @@ package com.example.servelet_board.board.test;
 import com.example.servelet_board.board.dao.BoardDAO;
 import com.example.servelet_board.board.dao.BoardVO;
 import com.example.servelet_board.board.util.DBConnectionUtil;
+import lombok.var;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.List;
 
 
 public class BoardTest {
@@ -32,9 +34,19 @@ public class BoardTest {
                 .writer("백승찬")
                 .build();
 
-        int result = boardDAO.insert(boardVO);
+        int result = boardDAO.boardInsert(boardVO);
 
         System.out.println(result);
+    }
+
+
+    @Test
+    public void boardFindAll(){
+        List<BoardVO> list = boardDAO.boardFindAll();
+
+        for(var board : list){
+            System.out.println(board);
+        }
     }
 
 }

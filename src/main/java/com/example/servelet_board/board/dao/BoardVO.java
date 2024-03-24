@@ -1,10 +1,7 @@
 package com.example.servelet_board.board.dao;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -12,6 +9,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class BoardVO {
     private Long id; // PK
     private String title; // 제목
