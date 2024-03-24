@@ -5,7 +5,6 @@ package com.example.servelet_board.board.test;
 import com.example.servelet_board.board.dao.BoardDAO;
 import com.example.servelet_board.board.dao.BoardVO;
 import com.example.servelet_board.board.util.DBConnectionUtil;
-import lombok.var;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,14 +39,15 @@ public class BoardTest {
     }
 
 
-//    @Test
-//    public void boardFindAll(){
-//        List<BoardVO> list = boardDAO.boardFindAll();
-//
-//        for(var board : list){
-//            System.out.println(board);
-//        }
-//    }
+    @Test
+    public void boardFindAll(){
+        String searchkey = "";
+        List<BoardVO> list = boardDAO.boardFindAll(searchkey);
+
+        for(var board : list){
+            System.out.println(board);
+        }
+    }
 
     @Test
     public void boardDetail(){

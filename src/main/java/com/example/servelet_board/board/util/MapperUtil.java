@@ -13,7 +13,7 @@ public enum MapperUtil {
         this.modelMapper = new ModelMapper();
         this.modelMapper.getConfiguration()
                 .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE)
+                .setFieldAccessLevel(Configuration.AccessLevel.PUBLIC)
                 .setMatchingStrategy(MatchingStrategies.STRICT);
     }
 

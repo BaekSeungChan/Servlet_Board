@@ -1,7 +1,6 @@
 package com.example.servelet_board.board.service;
 
 import com.example.servelet_board.board.dto.BoardDTO;
-import lombok.var;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
