@@ -1,10 +1,14 @@
 package com.example.servelet_board.members.dao;
 
+import com.example.servelet_board.members.dto.MemberDTO;
 import com.example.servelet_board.util.DBConnectionUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberDAO {
 
@@ -29,7 +33,6 @@ public class MemberDAO {
             e.printStackTrace();
         }
     }
-
 
     public void insert(MemberVO memberVO, String[] str){
         int member  = 0;
@@ -61,5 +64,30 @@ public class MemberDAO {
     }
 
 
+    public List<MemberDTO> selectAll(){
+        List<MemberDTO> list = new ArrayList<>();
+        try {
+            ResultSet rs = memberAndHobby.executeQuery();
+
+
+            while (rs.next()){
+                MemberDTO memberDTO = MemberDTO.builder()
+                        .membernum(rs.getLong("membernum"))
+                        .username(rs.getString("username"))
+                        .address(rs.getString("address"))
+                        .phone(rs.getString("phone"))
+                        .gender(rs.getString("gender"))
+                        .hobby(rs.getString("hobbies"))
+                        .build();
+
+                list.add(memberDTO);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return list;
+    }
 
 }
