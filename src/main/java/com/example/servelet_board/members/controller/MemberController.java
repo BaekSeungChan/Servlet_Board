@@ -40,6 +40,7 @@ public class MemberController extends HttpServlet {
                 case "membersignUp" -> membersignUp(req, res);
                 case "LoginPage" -> LoginPage(req, res);
                 case "Login" -> Login(req, res);
+                case "signOut" -> signOut(req, res);
                 default -> "";
             };
         }
@@ -58,6 +59,19 @@ public class MemberController extends HttpServlet {
 
     private String LoginPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         return "LoginPage";
+    }
+
+    private String signOut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String jspPage = null;
+
+        HttpSession session = req.getSession();
+        session.removeAttribute("loginInfo");
+        session.invalidate();
+
+
+        jspPage = "redirect:/board.do?action=main";
+
+        return jspPage;
     }
 
 
