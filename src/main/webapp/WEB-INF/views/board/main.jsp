@@ -71,7 +71,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign Up</a>
+                    <a class="nav-link" href="/member?action=signUpPage">Sign Up</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Sign In</a>
