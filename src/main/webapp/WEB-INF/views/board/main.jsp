@@ -74,7 +74,7 @@
                     <a class="nav-link" href="/member?action=signUpPage">Sign Up</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Sign In</a>
+                    <a class="nav-link" href="/member?action=LoginPage">Sign In</a>
                 </li>
             </ul>
         </div>

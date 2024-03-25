@@ -39,7 +39,7 @@
       box-sizing: border-box;
     }
     input[type=submit] {
-      background-color: #4CAF50;
+      background-color: #343a40;
       color: white;
       padding: 14px 20px;
       margin: 8px;
@@ -49,7 +49,7 @@
       width: calc(100% - 24px);
     }
     input[type=submit]:hover {
-      background-color: #45a049;
+      background-color: #555555;
     }
 
     input[type="checkbox"] {

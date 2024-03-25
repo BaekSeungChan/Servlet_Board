@@ -45,7 +45,9 @@ public class BoardController extends HttpServlet {
             res.sendRedirect(jspPage.substring("redirect:".length()));
         } else {
             System.out.println(jspPage);
-            req.getRequestDispatcher("/WEB-INF/views/board/" + jspPage + ".jsp").forward(req,res);
+            if (!res.isCommitted()) {
+                req.getRequestDispatcher("/WEB-INF/views/board/" + jspPage + ".jsp").forward(req, res);
+            }
         }
     }
 
