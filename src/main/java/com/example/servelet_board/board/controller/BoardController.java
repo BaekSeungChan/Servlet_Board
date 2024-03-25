@@ -38,6 +38,7 @@ public class BoardController extends HttpServlet {
             case "update" -> update(req, res);
             case "insertForm" -> insertForm(req, res);
             case "insert" -> insert(req, res);
+            case "main" -> main(req, res);
             default -> "";
         };
 
@@ -51,6 +52,11 @@ public class BoardController extends HttpServlet {
         }
     }
 
+
+    private String main(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/board/main.jsp").forward(req,res);
+        return "main";
+    }
 
     private String list(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
          String searchkey = req.getParameter("searchKey");

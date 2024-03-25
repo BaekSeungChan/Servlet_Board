@@ -73,7 +73,7 @@ public class MemberController extends HttpServlet {
 
         session.setAttribute("loginInfo", str);
 
-        jspPage = "redirect:/board.do?action=list";
+        jspPage = "redirect:/board.do?action=main";
 
         return  jspPage;
     }

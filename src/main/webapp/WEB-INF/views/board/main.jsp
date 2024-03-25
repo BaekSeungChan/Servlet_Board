@@ -70,16 +70,26 @@
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/member?action=signUpPage">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/member?action=LoginPage">Sign In</a>
-                </li>
+                <c:choose>
+                    <c:when test="${not empty sessionScope.loginInfo}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member?action=signOut">Sign Out</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member?action=signUpPage">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member?action=LoginPage">Sign In</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
 </nav>
+
 
 <div class="container">
     <div class="row">
