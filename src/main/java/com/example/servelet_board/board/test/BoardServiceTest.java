@@ -1,6 +1,7 @@
-package com.example.servelet_board.board.service;
+package com.example.servelet_board.board.test;
 
 import com.example.servelet_board.board.dto.BoardDTO;
+import com.example.servelet_board.board.service.BoardService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class BoardServiceTest {
 
     @Test
     public void boardDetail(){
-        BoardDTO boardDTO  = boardService.boardDetail(5L);
+        BoardDTO boardDTO  = boardService.boardDetail(4L);
 
         System.out.println(boardDTO);
     }

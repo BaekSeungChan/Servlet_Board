@@ -1,5 +1,6 @@
 package com.example.servelet_board.board.controller;
 
+import com.example.servelet_board.board.dto.BoardDTO;
 import com.example.servelet_board.board.service.BoardService;
 
 import javax.servlet.ServletException;
@@ -8,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-//@WebServlet("/board")
 public class BoardController extends HttpServlet {
 
     BoardService boardService = new BoardService();
@@ -50,23 +51,56 @@ public class BoardController extends HttpServlet {
 
 
     private String list(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+         String searchkey = req.getParameter("searchKey");
+         List<BoardDTO> list = boardService.boardFindAll(searchkey);
+
+         req.setAttribute("list", list);
+
         return "list";
     }
 
     private String view(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        Long ID = Long.parseLong(req.getParameter("ID"));
+        BoardDTO boardDTO = boardService.boardDetail(ID);
+
+        req.setAttribute("board", boardDTO);
+
         return "view";
     }
 
     private String delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        return "delete";
+        Long ID = Long.parseLong(req.getParameter("ID"));
+        boardService.boardDelete(ID);
+
+        return "redirect:board.do?action=list";
     }
 
     private String updateForm(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        Long ID = Long.parseLong(req.getParameter("ID"));
+
+        BoardDTO boardDTO = boardService.boardDetail(ID);
+
+        req.setAttribute("board", boardDTO);
+
         return "updateForm";
     }
 
     private String update(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        return "update";
+        Long ID = Long.parseLong(req.getParameter("ID"));
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        String writer = req.getParameter("writer");
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .title(title)
+                .content(content)
+                .writer(writer)
+                .build();
+
+        boardService.boardUpdate(boardDTO, ID);
+
+        return "redirect:board.do?action=list";
     }
 
     private String insertForm(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -74,6 +108,17 @@ public class BoardController extends HttpServlet {
     }
 
     private String insert(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        return "redirect:board?action=list";
+
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        String writer = req.getParameter("writer");
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .title(title)
+                .content(content)
+                .writer(writer).build();
+
+        boardService.boardInsert(boardDTO);
+        return "redirect:board.do?action=list";
     }
 }
