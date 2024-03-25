@@ -3,7 +3,7 @@ package com.example.servelet_board.board.service;
 import com.example.servelet_board.board.dao.BoardDAO;
 import com.example.servelet_board.board.dao.BoardVO;
 import com.example.servelet_board.board.dto.BoardDTO;
-import com.example.servelet_board.board.util.MapperUtil;
+import com.example.servelet_board.util.MapperUtil;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

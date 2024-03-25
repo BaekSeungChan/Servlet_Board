@@ -1,4 +1,4 @@
-package com.example.servelet_board.board.util;
+package com.example.servelet_board.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

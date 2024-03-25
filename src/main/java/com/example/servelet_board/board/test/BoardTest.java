@@ -4,7 +4,7 @@ package com.example.servelet_board.board.test;
 
 import com.example.servelet_board.board.dao.BoardDAO;
 import com.example.servelet_board.board.dao.BoardVO;
-import com.example.servelet_board.board.util.DBConnectionUtil;
+import com.example.servelet_board.util.DBConnectionUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.example.servelet_board.board.util;
+package com.example.servelet_board.util;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.config.Configuration;

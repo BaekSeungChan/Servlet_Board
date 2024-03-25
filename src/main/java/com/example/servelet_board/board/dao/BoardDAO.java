@@ -1,6 +1,6 @@
 package com.example.servelet_board.board.dao;
 
-import com.example.servelet_board.board.util.DBConnectionUtil;
+import com.example.servelet_board.util.DBConnectionUtil;
 
 import java.sql.*;
 import java.time.LocalDate;
