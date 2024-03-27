@@ -33,6 +33,9 @@
                 <c:choose>
                     <c:when test="${not empty sessionScope.loginInfo}">
                         <li class="nav-item">
+                            <a class="nav-link" href="/member?action=myPage">MyPage</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/member?action=signOut">Sign Out</a>
                         </li>
                     </c:when>
