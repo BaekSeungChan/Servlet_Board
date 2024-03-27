@@ -34,4 +34,12 @@ public class MemberTest {
             System.out.println(member);
         }
     }
+
+    @Test
+    public void detailMember(){
+        String userid = "qortmdcks97";
+        MemberDTO memberDTO  =  memberDAO.detailMember(userid);
+
+        System.out.println(memberDTO);
+    }
 }

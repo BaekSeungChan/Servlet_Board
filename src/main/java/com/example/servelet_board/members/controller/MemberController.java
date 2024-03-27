@@ -2,6 +2,7 @@ package com.example.servelet_board.members.controller;
 
 import com.example.servelet_board.members.dao.MemberDAO;
 import com.example.servelet_board.members.dao.MemberVO;
+import com.example.servelet_board.members.dto.MemberDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,14 @@ public class MemberController {
     MemberDAO memberDAO = new MemberDAO();
 
     public String myPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        String userid = (String) session.getAttribute("userid");
+
+
+        MemberDTO memberDTO = memberDAO.detailMember(userid);
+
+        req.setAttribute("member", memberDTO);
+
         return "MyPage";
     }
 
@@ -47,8 +56,6 @@ public class MemberController {
         String userid = req.getParameter("userid");
         String userpassword = req.getParameter("userpassword");
 
-        System.out.println("user id : " + userid);
-        System.out.println("userpassword : " + userpassword);
 
         MemberVO memberVO = memberDAO.LoginCheck(userid);
 
@@ -57,7 +64,7 @@ public class MemberController {
             jspPage = "LoginPage";
         } else {
             HttpSession session = req.getSession();
-            session.setAttribute("loginInfo", memberVO.getUsername());
+            session.setAttribute("userid", memberVO.getUserid());
             jspPage = "redirect:/board.do?action=main";
         }
 

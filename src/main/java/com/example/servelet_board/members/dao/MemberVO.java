@@ -15,7 +15,4 @@ public class MemberVO {
     private String address; // 주소
     private String phone; // 전화번호
     private String gender; // 성별
-
-
-
 }

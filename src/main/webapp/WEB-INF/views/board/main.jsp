@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav ml-auto">
                 <c:choose>
-                    <c:when test="${not empty sessionScope.loginInfo}">
+                    <c:when test="${not empty sessionScope.userid}">
                         <li class="nav-item">
                             <a class="nav-link" href="/member?action=myPage">MyPage</a>
                         </li>
