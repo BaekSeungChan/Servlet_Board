@@ -10,7 +10,7 @@
 
     <servlet>
         <servlet-name>BoardServlet</servlet-name>
-        <servlet-class>com.example.servelet_board.board.controller.BoardController</servlet-class>
+        <servlet-class>com.example.servelet_board.board.servlet.BoardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BoardServlet</servlet-name>
