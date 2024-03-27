@@ -23,7 +23,7 @@ public class LoginCheckFilter implements Filter {
 
         if ("insertForm".equals(action)) {
             HttpSession session = req.getSession();
-            if (session.getAttribute("loginInfo") == null) {
+            if (session.getAttribute("userid") == null) {
                 res.sendRedirect("/member?action=LoginPage");
                 return;
             }
