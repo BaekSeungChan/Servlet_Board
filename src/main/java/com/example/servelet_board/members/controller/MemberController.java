@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 public class MemberController {
 
@@ -68,6 +69,19 @@ public class MemberController {
 
     public String LoginPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         return "LoginPage";
+    }
+
+    public String adminPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        List<MemberDTO> memberDTO = memberDAO.selectAll();
+
+        for(var a : memberDTO){
+            System.out.println(a);
+        }
+
+        req.setAttribute("admin", memberDTO);
+
+        req.getRequestDispatcher("/WEB-INF/views/admin/adminPage.jsp").forward(req,res);
+        return "adminPage";
     }
 
     public String signOut(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

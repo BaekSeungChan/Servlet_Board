@@ -1,0 +1,71 @@
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.jumbotron {
+    background-color: #343a40;
+    color: #fff;
+    padding: 80px 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.navbar {
+    height: 40px;
+}
+
+.navbar-brand, .nav-link, .exit-link {
+    color: #343a40 !important;
+    transition: color 0.3s ease;
+}
+.exit-link {
+    text-decoration: none;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.navbar-collapse {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-item {
+    align-self: center;
+}
+
+.navbar-toggler-icon {
+    background-color: #fff;
+}
+
+.nav-link:hover, .exit-link:hover {
+    color: #ccc !important;
+}
+
+
+.exit-link {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f4f4f4;
+}
+.delete-btn {
+    color: white;
+    background-color: #343a40;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

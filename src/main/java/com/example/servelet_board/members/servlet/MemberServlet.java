@@ -39,6 +39,7 @@ public class MemberServlet extends HttpServlet {
                 case "membersignUp" -> memberController.membersignUp(req, res);
                 case "LoginPage" -> memberController.LoginPage(req, res);
                 case "Login" -> memberController.Login(req, res);
+                case "adminPage" -> memberController.adminPage(req, res);
                 case "signOut" -> memberController.signOut(req, res);
                 case "myPage" -> memberController.myPage(req, res);
                 case "updateProfile" -> memberController.updateProfile(req, res);
