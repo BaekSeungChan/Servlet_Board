@@ -98,7 +98,7 @@ public class MemberController {
     }
 
 
-    public String Login(HttpServletRequest req, HttpServletResponse res) {
+    public String Login(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String jspPage = null;
 
         String userid = req.getParameter("userid");
@@ -110,7 +110,10 @@ public class MemberController {
         if (memberVO == null || !userpassword.equals(memberVO.getUserpassword())) {
             req.setAttribute("errorMessage", "사용자 이름 또는 비밀번호가 잘못되었습니다.");
             jspPage = "LoginPage";
-        } else {
+        } else if (userid.equals("Qortmdcks95") && userpassword.equals("1234")) {
+            res.sendRedirect("/member?action=adminPage");
+        }
+        else {
             HttpSession session = req.getSession();
             session.setAttribute("userid", memberVO.getUserid());
             jspPage = "redirect:/board.do?action=main";

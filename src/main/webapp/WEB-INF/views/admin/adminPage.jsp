@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="navbar-collapse" id="collapsibleNavbar">
             <div class="nav-item">
-                <a class="nav-link exit-link" href="/member?action=main">Exit</a>
+                <a class="nav-link exit-link" href="/">Exit</a>
             </div>
         </div>
     </div>

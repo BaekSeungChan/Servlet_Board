@@ -20,7 +20,6 @@ public class LoginCheckFilter implements Filter {
 
         String action = req.getParameter("action");
 
-
         if ("insertForm".equals(action)) {
             HttpSession session = req.getSession();
             if (session.getAttribute("userid") == null) {
