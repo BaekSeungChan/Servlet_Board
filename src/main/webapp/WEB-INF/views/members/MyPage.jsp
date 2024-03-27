@@ -23,7 +23,7 @@
 </nav>
 
 <div class="container mt-5">
-    <form action="/updateProfile" method="POST">
+    <form action="/member?action=w" method="POST">
         <div class="card">
             <div class="card-header">
                 <h2>Profile</h2>
@@ -31,13 +31,22 @@
             <div class="card-body">
                 <table class="table">
                     <tbody>
+                    <input type="hidden" name="membernum" value="${member.membernum}" class="form-control"/>
+                    <tr>
+                        <th scope="row" class="font-weight-bold">UserID:</th>
+                        <td><input type="text" name="userid" value="${member.userid}" class="form-control"/></td>
+                    </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Username:</th>
                         <td><input type="text" name="username" value="${member.username}" class="form-control"/></td>
                     </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Password:</th>
-                        <td><input type="text" name="userpassword" class="form-control" value="${member.userpassword}"/></td>
+                        <td><input type="password" name="userpassword1" class="form-control" value="${member.username}" /></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="font-weight-bold">Password Check:</th>
+                        <td><input type="password" name="userpassword2" class="form-control"/></td>
                     </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Gender:</th>

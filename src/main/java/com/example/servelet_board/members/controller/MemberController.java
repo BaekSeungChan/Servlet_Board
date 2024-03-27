@@ -28,6 +28,41 @@ public class MemberController {
         return "MyPage";
     }
 
+    public String updateProfile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String jspPage = null;
+
+        Long membernum = Long.parseLong(req.getParameter("membernum"));
+        String userid = req.getParameter("userid");
+        String password1 = req.getParameter("userpassword1");
+        String password2 = req.getParameter("userpassword2");
+        String username = req.getParameter("username");
+        String address = req.getParameter("address");
+        String phone = req.getParameter("phone");
+        String gender = req.getParameter("gender");
+
+        System.out.println("chan : " + userid);
+
+        MemberVO memberVO = MemberVO.builder()
+                .userid(userid)
+                .userpassword(password1)
+                .username(username)
+                .address(address)
+                .phone(phone)
+                .gender(gender)
+                .build();
+
+        String[] hobbies = req.getParameterValues("hobby");
+
+        if (password2 != null && password2.equals(password1)) {
+            memberDAO.updateProfile(memberVO, hobbies, membernum);
+            jspPage = "redirect:/board.do?action=main";
+        } else {
+            req.getRequestDispatcher("/WEB-INF/views/members/LoginError.jsp").forward(req, res);
+        }
+
+        return jspPage;
+    }
+
     public String signUpPage(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         return "SignUpPage";
     }

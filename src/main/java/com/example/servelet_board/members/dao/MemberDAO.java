@@ -13,19 +13,21 @@ import java.util.List;
 public class MemberDAO {
 
     private static Connection conn = null;
-    private static PreparedStatement memberInsert = null;
     private static PreparedStatement hobbyInsert = null;
     private static PreparedStatement adminMemberAndHobby = null;
     private static PreparedStatement memberNameAndPassWord = null;
     private static PreparedStatement memerDettail = null;
+    private static PreparedStatement hobbyDelete = null;
+    private static PreparedStatement memberUpdate = null;
 
     String jspPage = null;
     static {
         try{
             conn = DBConnectionUtil.DATABASE.getConnection();
-            memberInsert = conn.prepareStatement("INSERT INTO members (username, address, phone, gender, userid, userpassword) VALUES (?, ?, ?, ?, ?, ?);");
             memberNameAndPassWord = conn.prepareStatement("SELECT * FROM members where userid = ?;");
-            hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (LAST_INSERT_ID(), ?), (LAST_INSERT_ID(), ?), (LAST_INSERT_ID(), ?);");
+            memberUpdate = conn.prepareStatement("UPDATE members SET username =?, address =?, phone =?, gender =?, userid =?, userpassword =? WHERE membernum = ?");
+//            hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (?, ?);");
+            hobbyDelete = conn.prepareStatement("delete from memberhobby where membernum = ?");
             memerDettail = conn.prepareStatement("SELECT m.membernum, m.userid, m.username, m.userpassword, m.address, m.phone, m.gender, GROUP_CONCAT(h.hobbyname SEPARATOR ', ') AS hobbies\n" +
                     "FROM members m\n" +
                     "LEFT JOIN memberhobby mh ON m.membernum = mh.membernum\n" +
@@ -43,34 +45,88 @@ public class MemberDAO {
         }
     }
 
-    public void insert(MemberVO memberVO, String[] str){
-        int member  = 0;
-        int hobby  = 0;
-        try{
+    public void updateProfile(MemberVO memberVO, String[] hobby, Long membernum) {
+        try {
+
+            hobbyDelete.setLong(1, membernum);
+            hobbyDelete.executeUpdate();
+
+
+            memberUpdate.setString(1, memberVO.getUsername());
+            memberUpdate.setString(2, memberVO.getAddress());
+            memberUpdate.setString(3, memberVO.getPhone());
+            memberUpdate.setString(4, memberVO.getGender());
+            memberUpdate.setString(5, memberVO.getUserid());
+            memberUpdate.setString(6, memberVO.getUserpassword());
+            memberUpdate.setLong(7, membernum);
+            memberUpdate.executeUpdate();
+
+            for (String h : hobby) {
+                hobbyInsert.setLong(1, membernum);
+                hobbyInsert.setString(2, h);
+                hobbyInsert.executeUpdate();
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insert(MemberVO memberVO, String[] str) {
+        Connection conn = null;
+        PreparedStatement memberInsert = null;
+        PreparedStatement hobbyInsert = null;
+
+        try {
+            conn = DBConnectionUtil.DATABASE.getConnection();
+            conn.setAutoCommit(false);
+
+            String memberInsertSQL = "INSERT INTO members (username, address, phone, gender, userid, userpassword) VALUES (?, ?, ?, ?, ?, ?)";
+            memberInsert = conn.prepareStatement(memberInsertSQL, PreparedStatement.RETURN_GENERATED_KEYS);
             memberInsert.setString(1, memberVO.getUsername());
             memberInsert.setString(2, memberVO.getAddress());
             memberInsert.setString(3, memberVO.getPhone());
             memberInsert.setString(4, memberVO.getGender());
             memberInsert.setString(5, memberVO.getUserid());
             memberInsert.setString(6, memberVO.getUserpassword());
+            memberInsert.executeUpdate();
 
-            member = memberInsert.executeUpdate();
+            ResultSet generatedKeys = memberInsert.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                long memberNum = generatedKeys.getLong(1);
 
-            System.out.println(member);
+                String hobbyInsertSQL = "INSERT INTO memberhobby (membernum, hobbyname) VALUES (?, ?)";
+                hobbyInsert = conn.prepareStatement(hobbyInsertSQL);
 
-            hobbyInsert.setString(1, str[0]);
-            hobbyInsert.setString(2, str[1]);
-            hobbyInsert.setString(3, str[2]);
+                for (String h : str) {
+                    hobbyInsert.setLong(1, memberNum);
+                    hobbyInsert.setString(2, h);
+                    hobbyInsert.executeUpdate();
+                }
+            }
 
-            hobby = hobbyInsert.executeUpdate();
-
-            System.out.println(hobby);
-
+            conn.commit();
         } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+                } catch (SQLException e) { e.printStackTrace(); }
+            }
         }
-
     }
+
+
+
 
     public MemberDTO detailMember(String userid){
         MemberDTO memberDTO = null;
