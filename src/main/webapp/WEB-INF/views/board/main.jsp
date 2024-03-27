@@ -12,47 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding-top: 60px;
-        }
-        .jumbotron {
-            background-color: #343a40;
-            color: #fff;
-            padding: 80px 0;
-            margin-top: 0;
-            margin-bottom: 0;
-        }
-        .navbar {
-            background-color: #343a40;
-        }
-        .navbar-brand, .nav-link {
-            color: #fff !important;
-        }
-        .navbar-toggler-icon {
-            background-color: #fff;
-        }
-        .nav-link:hover {
-            color: #ccc !important;
-        }
-        .fakeimg {
-            background-color: #ddd;
-            color: #aaa;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20px;
-        }
-        .section-title {
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #343a40;
-        }
-        .logo {
-            margin-right: auto;
-            margin-left: auto;
-        }
-    </style>
+    <link href="css/board/main.css" rel="stylesheet">
 </head>
 <body>
 

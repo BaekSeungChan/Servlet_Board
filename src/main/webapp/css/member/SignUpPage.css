@@ -1,0 +1,75 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+h2 {
+    text-align: center;
+    margin-top: 50px;
+}
+table {
+    margin: auto;
+    border-collapse: collapse;
+    width: 50%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+input[type=text], input[type=password], input[type=tel], input[type=radio], input[type=checkbox] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    margin: 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=submit] {
+    background-color: #343a40;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: calc(100% - 24px);
+}
+input[type=submit]:hover {
+    background-color: #555555;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+label input[type="checkbox"] {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+label input[type="radio"] {
+    display: inline-block;
+    margin-right: 5px;
+}

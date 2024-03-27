@@ -11,52 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        body {
-            padding-top: 80px;
-        }
-        .navbar {
-            background-color: #343a40;
-            height: 80px;
-        }
-        .navbar-brand, .nav-link {
-            color: #fff !important;
-        }
-        .nav-link:hover {
-            color: #ccc !important;
-        }
-        .bg-dark-gray {
-            background-color: #343a40;
-            color: #fff;
-        }
-        .board-content {
-            min-height: 300px;
-        }
-        .board-row {
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8f9fa;
-        }
-        .board-row .col {
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        .search-button {
-            background-color: #555555; /* 회색 배경색 */
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <link href="css/board/list.css" rel="stylesheet">
 </head>
 <body>
 

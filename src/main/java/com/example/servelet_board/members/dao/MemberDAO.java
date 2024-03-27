@@ -17,7 +17,7 @@ public class MemberDAO {
     private static PreparedStatement hobbyInsert = null;
     private static PreparedStatement memberAndHobby = null;
 
-
+    String jspPage = null;
     static {
         try{
             conn = DBConnectionUtil.DATABASE.getConnection();
