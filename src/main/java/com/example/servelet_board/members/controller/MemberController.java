@@ -31,7 +31,7 @@ public class MemberController {
     public String updateProfile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String jspPage = null;
 
-        Long membernum = Long.parseLong(req.getParameter("membernum"));
+        int membernum = Integer.parseInt(req.getParameter("membernum"));
         String userid = req.getParameter("userid");
         String password1 = req.getParameter("userpassword1");
         String password2 = req.getParameter("userpassword2");
@@ -40,7 +40,6 @@ public class MemberController {
         String phone = req.getParameter("phone");
         String gender = req.getParameter("gender");
 
-        System.out.println("chan : " + userid);
 
         MemberVO memberVO = MemberVO.builder()
                 .userid(userid)

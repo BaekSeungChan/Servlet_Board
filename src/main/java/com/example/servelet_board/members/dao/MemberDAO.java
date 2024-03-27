@@ -13,21 +13,16 @@ import java.util.List;
 public class MemberDAO {
 
     private static Connection conn = null;
-    private static PreparedStatement hobbyInsert = null;
     private static PreparedStatement adminMemberAndHobby = null;
     private static PreparedStatement memberNameAndPassWord = null;
     private static PreparedStatement memerDettail = null;
-    private static PreparedStatement hobbyDelete = null;
-    private static PreparedStatement memberUpdate = null;
+
 
     String jspPage = null;
     static {
         try{
             conn = DBConnectionUtil.DATABASE.getConnection();
             memberNameAndPassWord = conn.prepareStatement("SELECT * FROM members where userid = ?;");
-            memberUpdate = conn.prepareStatement("UPDATE members SET username =?, address =?, phone =?, gender =?, userid =?, userpassword =? WHERE membernum = ?");
-//            hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (?, ?);");
-            hobbyDelete = conn.prepareStatement("delete from memberhobby where membernum = ?");
             memerDettail = conn.prepareStatement("SELECT m.membernum, m.userid, m.username, m.userpassword, m.address, m.phone, m.gender, GROUP_CONCAT(h.hobbyname SEPARATOR ', ') AS hobbies\n" +
                     "FROM members m\n" +
                     "LEFT JOIN memberhobby mh ON m.membernum = mh.membernum\n" +
@@ -45,13 +40,25 @@ public class MemberDAO {
         }
     }
 
-    public void updateProfile(MemberVO memberVO, String[] hobby, Long membernum) {
-        try {
+    public void updateProfile(MemberVO memberVO, String[] hobby, int membernum) {
+        Connection conn = null;
+        PreparedStatement hobbyDelete = null;
+        PreparedStatement memberUpdate = null;
+        PreparedStatement hobbyInsert = null;
 
-            hobbyDelete.setLong(1, membernum);
+        System.out.println("hobby : " + hobby);
+        System.out.println("membernum : " + membernum);
+        System.out.println("memberVo " + memberVO);
+
+        try {
+            conn = DBConnectionUtil.DATABASE.getConnection();
+            conn.setAutoCommit(false);
+
+            hobbyDelete = conn.prepareStatement("delete from memberhobby where membernum = ?");
+            hobbyDelete.setInt(1, membernum);
             hobbyDelete.executeUpdate();
 
-
+            memberUpdate = conn.prepareStatement("UPDATE members SET username =?, address =?, phone =?, gender =?, userid =?, userpassword =? WHERE membernum = ?");
             memberUpdate.setString(1, memberVO.getUsername());
             memberUpdate.setString(2, memberVO.getAddress());
             memberUpdate.setString(3, memberVO.getPhone());
@@ -61,17 +68,36 @@ public class MemberDAO {
             memberUpdate.setLong(7, membernum);
             memberUpdate.executeUpdate();
 
+            hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (?, ?)");
             for (String h : hobby) {
                 hobbyInsert.setLong(1, membernum);
                 hobbyInsert.setString(2, h);
                 hobbyInsert.executeUpdate();
             }
 
-
+            conn.commit();
         } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
             e.printStackTrace();
+        } finally {
+            try { if (hobbyInsert != null) hobbyInsert.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (memberUpdate != null) memberUpdate.close(); } catch (SQLException e) { e.printStackTrace(); }
+            try { if (hobbyDelete != null) hobbyDelete.close(); } catch (SQLException e) { e.printStackTrace(); }
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true);
+//                    conn.close();
+                } catch (SQLException e) { e.printStackTrace(); }
+            }
         }
     }
+
 
     public void insert(MemberVO memberVO, String[] str) {
         Connection conn = null;

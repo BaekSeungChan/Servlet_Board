@@ -23,7 +23,7 @@
 </nav>
 
 <div class="container mt-5">
-    <form action="/member?action=w" method="POST">
+    <form action="/member?action=updateProfile" method="POST">
         <div class="card">
             <div class="card-header">
                 <h2>Profile</h2>
@@ -42,7 +42,7 @@
                     </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Password:</th>
-                        <td><input type="password" name="userpassword1" class="form-control" value="${member.username}" /></td>
+                        <td><input type="password" name="userpassword1" class="form-control" value="${member.userpassword}" /></td>
                     </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Password Check:</th>
