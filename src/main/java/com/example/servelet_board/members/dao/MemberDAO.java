@@ -15,7 +15,8 @@ public class MemberDAO {
     private static Connection conn = null;
     private static PreparedStatement adminMemberAndHobby = null;
     private static PreparedStatement memberNameAndPassWord = null;
-    private static PreparedStatement memerDettail = null;
+    private static PreparedStatement memberDetail = null;
+    private static PreparedStatement adminDelete = null;
 
 
     String jspPage = null;
@@ -23,7 +24,7 @@ public class MemberDAO {
         try{
             conn = DBConnectionUtil.DATABASE.getConnection();
             memberNameAndPassWord = conn.prepareStatement("SELECT * FROM members where userid = ?;");
-            memerDettail = conn.prepareStatement("SELECT m.membernum, m.userid, m.username, m.userpassword, m.address, m.phone, m.gender, GROUP_CONCAT(h.hobbyname SEPARATOR ', ') AS hobbies\n" +
+            memberDetail = conn.prepareStatement("SELECT m.membernum, m.userid, m.username, m.userpassword, m.address, m.phone, m.gender, GROUP_CONCAT(h.hobbyname SEPARATOR ', ') AS hobbies\n" +
                     "FROM members m\n" +
                     "LEFT JOIN memberhobby mh ON m.membernum = mh.membernum\n" +
                     "LEFT JOIN hobby h ON mh.hobbyname = h.hobbyname\n" +
@@ -35,9 +36,22 @@ public class MemberDAO {
                     "LEFT JOIN hobby h ON mh.hobbyname = h.hobbyname\n" +
                     "GROUP BY m.membernum;\n");
 
+            adminDelete = conn.prepareStatement("DELETE FROM members WHERE membernum = ?;");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void adminDelete(int membernum){
+        try{
+            adminDelete.setInt(1, membernum);
+
+            adminDelete.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public void updateProfile(MemberVO memberVO, String[] hobby, int membernum) {
@@ -157,9 +171,9 @@ public class MemberDAO {
     public MemberDTO detailMember(String userid){
         MemberDTO memberDTO = null;
         try{
-            memerDettail.setString(1, userid);
+            memberDetail.setString(1, userid);
 
-            ResultSet rs = memerDettail.executeQuery();
+            ResultSet rs = memberDetail.executeQuery();
 
             System.out.println("susuus" + userid);
             if(rs.next()){

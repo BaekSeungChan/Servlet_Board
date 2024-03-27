@@ -29,6 +29,21 @@ public class MemberController {
         return "MyPage";
     }
 
+
+    public String adminDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        String jspPage = null;
+        int membernum = Integer.parseInt(req.getParameter("membernum"));
+
+        System.out.println("ddd " + membernum);
+        System.out.println("ccjcjj");
+
+        memberDAO.adminDelete(membernum);
+
+        jspPage = "redirect:/member?action=adminPage";
+
+        return jspPage;
+    }
+
     public String updateProfile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String jspPage = null;
 

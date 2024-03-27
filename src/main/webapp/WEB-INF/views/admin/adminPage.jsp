@@ -40,10 +40,19 @@
             <td>${member.phone}</td>
             <td>${member.gender}</td>
             <td>${member.hobby}</td>
-            <td><button class="delete-btn" onclick="alert('Delete function not implemented.');">Delete</button></td>
+            <td>
+                <form action="/member" method="post">
+                    <input type="hidden" name="action" value="delete" />
+                    <input type="hidden" name="membernum" value="${member.membernum}" />
+                    <input type="submit" value="Delete" class="delete-btn" />
+                </form>
+            </td>
         </tr>
     </c:forEach>
+
     </tbody>
 </table>
+
+
 </body>
 </html>

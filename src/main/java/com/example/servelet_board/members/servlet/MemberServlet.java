@@ -43,6 +43,7 @@ public class MemberServlet extends HttpServlet {
                 case "signOut" -> memberController.signOut(req, res);
                 case "myPage" -> memberController.myPage(req, res);
                 case "updateProfile" -> memberController.updateProfile(req, res);
+                case "delete" -> memberController.adminDelete(req, res);
                 default -> "";
             };
         }
@@ -50,7 +51,6 @@ public class MemberServlet extends HttpServlet {
         if (jspPage != null && jspPage.startsWith("redirect:")) {
             res.sendRedirect(jspPage.substring("redirect:".length()));
         } else if (jspPage != null && !jspPage.isEmpty()) {
-            System.out.println(jspPage);
             req.getRequestDispatcher("/WEB-INF/views/members/" + jspPage + ".jsp").forward(req, res);
         }
     }
