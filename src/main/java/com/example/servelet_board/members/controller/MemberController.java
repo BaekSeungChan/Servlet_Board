@@ -44,19 +44,26 @@ public class MemberController {
     public String Login(HttpServletRequest req, HttpServletResponse res) {
         String jspPage = null;
 
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
+        String userid = req.getParameter("userid");
+        String userpassword = req.getParameter("userpassword");
 
-        String str = username + password;
+        System.out.println("user id : " + userid);
+        System.out.println("userpassword : " + userpassword);
 
-        HttpSession session = req.getSession();
+        MemberVO memberVO = memberDAO.LoginCheck(userid);
 
-        session.setAttribute("loginInfo", str);
+        if (memberVO == null || !userpassword.equals(memberVO.getUserpassword())) {
+            req.setAttribute("errorMessage", "사용자 이름 또는 비밀번호가 잘못되었습니다.");
+            jspPage = "LoginPage";
+        } else {
+            HttpSession session = req.getSession();
+            session.setAttribute("loginInfo", memberVO.getUsername());
+            jspPage = "redirect:/board.do?action=main";
+        }
 
-        jspPage = "redirect:/board.do?action=main";
-
-        return  jspPage;
+        return jspPage;
     }
+
 
     public String membersignUp(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String jspPage = null;

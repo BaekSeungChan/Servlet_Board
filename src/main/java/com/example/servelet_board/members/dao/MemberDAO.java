@@ -16,12 +16,14 @@ public class MemberDAO {
     private static PreparedStatement memberInsert = null;
     private static PreparedStatement hobbyInsert = null;
     private static PreparedStatement memberAndHobby = null;
+    private static PreparedStatement memberNameAndPassWord = null;
 
     String jspPage = null;
     static {
         try{
             conn = DBConnectionUtil.DATABASE.getConnection();
             memberInsert = conn.prepareStatement("INSERT INTO members (username, address, phone, gender, userid, userpassword) VALUES (?, ?, ?, ?, ?, ?);");
+            memberNameAndPassWord = conn.prepareStatement("SELECT * FROM members where userid = ?;");
             hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (LAST_INSERT_ID(), ?), (LAST_INSERT_ID(), ?), (LAST_INSERT_ID(), ?);");
             memberAndHobby = conn.prepareStatement("SELECT m.membernum, m.userid, m.username, m.userpassword, m.address, m.phone, m.gender, GROUP_CONCAT(h.hobbyname SEPARATOR ', ') AS hobbies\n" +
                     "FROM members m\n" +
@@ -88,6 +90,29 @@ public class MemberDAO {
 
 
         return list;
+    }
+
+
+    public MemberVO LoginCheck(String username){
+        MemberVO memberVO = null;
+
+        try {
+            memberNameAndPassWord.setString(1, username);
+
+            ResultSet rs = memberNameAndPassWord.executeQuery();
+
+            if(rs.next()){
+                memberVO = MemberVO.builder()
+                        .userid(rs.getString("userid"))
+                        .userpassword(rs.getString("userpassword"))
+                        .username(rs.getString("username"))
+                        .build();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return  memberVO;
     }
 
 }
