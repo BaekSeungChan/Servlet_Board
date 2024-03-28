@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Kosa Community</title>
+    <title>Apple Community</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -17,13 +17,13 @@
 <body>
 
 <div class="jumbotron text-center">
-    <h1 class="display-4">Kosa Community</h1>
-    <p class="lead">"Life is unfair, get used to it." – Bill Gates</p>
+    <h1 class="display-4">Apple Stories</h1>
+    <p class="lead">"Let's go invent tomorrow rather than<br> worrying about what happened yesterday" – Steve Jobs</p>
 </div>
 
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand logo" href="http://localhost:8080">Today Good</a>
+        <a class="navbar-brand logo" href="http://localhost:8080">News Room</a>
         <a class="nav-link" href="/board.do?action=list">Community</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -54,48 +54,39 @@
 </nav>
 
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h2 class="section-title">About Me</h2>
-            <h5>Photo of me:</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+            <h2 class="section-title">About Apple</h2>
+            <h5>Steve Jobs</h5>
+                <img src="img_2.png" style="max-width: 100%; height: auto;">
+            <p>Area codes 408 and 669</p>
             <h3>Some Links</h3>
-            <p>Lorem ipsum dolor sit ame.</p>
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
+            <p>If you want it, you can fly, <br> you just have to trust you a lot</p>
         </div>
         <div class="col-md-8">
-            <h2 class="section-title">TITLE HEADING</h2>
-            <h5>Title description, Dec 7, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <h2 class="section-title">Plan to achieve carbon neutrality of all products</h2>
+            <h5>Title description, Dec 7, 2024</h5>
+            <div class="fakeimg">
+                <img src="img.png" style="max-width: 100%; height: auto;">
+            </div>
             <br>
-            <h2 class="section-title">TITLE HEADING</h2>
-            <h5>Title description, Sep 2, 2017</h5>
-            <div class="fakeimg">Fake Image</div>
-            <p>Some text..</p>
-            <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+            <p>To decarbonize products, Apple has introduced a clear and thorough approach that prioritizes reducing greenhouse gas emissions by power, materials, and transportation, the most important sources of emissions in the product's life cycle. First, product carbon emissions will be dramatically reduced, and then high-quality carbon credits obtained from nature-based projects will be applied to residual emissions that cannot be prevented or reduced by existing solutions.</p>
+            <br>
+            <h2 class="section-title">Apple and Google, Unwanted Tracking Issues</h2>
+            <h5>Title description, Sep 2, 2014</h5>
+            <div class="fakeimg">
+                <img src="img_1.png" style="max-width: 100%; height: auto;">
+            </div>
+            <br>
+            <p>Today, Apple and Google jointly submitted a proposed industry specification to combat the abuse of Bluetooth location tracking devices. The specification makes Bluetooth location tracking devices compatible with unauthorized tracking detection and makes them alert on iOS and Android platforms. Samsung, Tile, Chipolo, eufy Security, and Pebblebee have expressed support for the draft specification, which would provide best practices and guidelines for implementing these features in their products.</p>
         </div>
     </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-top: 40px;">
-    <p>2024.03.25</p>
+    <p>March 25, 2024</p>
 </div>
 
 </body>
