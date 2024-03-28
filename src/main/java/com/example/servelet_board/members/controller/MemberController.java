@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 public class MemberController {
 
@@ -113,29 +114,43 @@ public class MemberController {
     }
 
 
-    public String Login(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        String jspPage = null;
-
+    public String login(HttpServletRequest req, HttpServletResponse res) throws IOException {
         String userid = req.getParameter("userid");
         String userpassword = req.getParameter("userpassword");
+        String auto = req.getParameter("autoLogin");
+
+        boolean rememberMe = auto != null && auto.equals("on");
 
 
-        MemberVO memberVO = memberDAO.LoginCheck(userid);
+        try {
+            MemberVO memberVO = memberDAO.LoginCheck(userid);
 
-        if (memberVO == null || !userpassword.equals(memberVO.getUserpassword())) {
-            req.setAttribute("errorMessage", "사용자 이름 또는 비밀번호가 잘못되었습니다.");
-            jspPage = "LoginPage";
-        } else if (userid.equals("Qortmdcks95") && userpassword.equals("1234")) {
-            res.sendRedirect("/member?action=adminPage");
+
+            if (rememberMe && memberVO != null) {
+                String uuid = UUID.randomUUID().toString();
+                memberDAO.updateUuid(userid, uuid);
+                memberVO.setUuid(uuid);
+            }
+
+            if (memberVO != null && userpassword.equals(memberVO.getUserpassword())) {
+                HttpSession session = req.getSession();
+                session.setAttribute("userid", memberVO.getUserid());
+
+                if (userid.equals("Qortmdcks95") && userpassword.equals("1234")) {
+                    return "redirect:/member?action=adminPage";
+                } else {
+                    return "redirect:/board.do?action=main";
+                }
+            } else {
+                req.setAttribute("errorMessage", "사용자 이름 또는 비밀번호가 잘못되었습니다.");
+                return "LoginPage";
+            }
+        } catch (Exception e) {
+            // 예외 처리 코드 추가
+            return "LoginPage";
         }
-        else {
-            HttpSession session = req.getSession();
-            session.setAttribute("userid", memberVO.getUserid());
-            jspPage = "redirect:/board.do?action=main";
-        }
-
-        return jspPage;
     }
+
 
 
     public String membersignUp(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

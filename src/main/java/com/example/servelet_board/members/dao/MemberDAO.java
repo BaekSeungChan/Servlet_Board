@@ -17,6 +17,7 @@ public class MemberDAO {
     private static PreparedStatement memberNameAndPassWord = null;
     private static PreparedStatement memberDetail = null;
     private static PreparedStatement adminDelete = null;
+    private static PreparedStatement updateUuid = null;
 
 
     String jspPage = null;
@@ -37,6 +38,9 @@ public class MemberDAO {
                     "GROUP BY m.membernum;\n");
 
             adminDelete = conn.prepareStatement("DELETE FROM members WHERE membernum = ?;");
+
+            updateUuid = conn.prepareStatement("UPDATE members SET uuid = ? WHERE userid = ?");
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -246,6 +250,19 @@ public class MemberDAO {
         }
 
         return  memberVO;
+    }
+
+//    UPDATE members SET uuid = ? WHERE userid = ?
+    public void updateUuid(String userid, String uuid) throws Exception{
+        try{
+            updateUuid.setString(1, uuid);
+            updateUuid.setString(2, userid);
+
+            int update = updateUuid.executeUpdate();
+            System.out.println("dudu: " + update);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
