@@ -6,10 +6,7 @@ import com.example.servelet_board.members.dto.MemberDTO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
@@ -130,6 +127,11 @@ public class MemberController {
                 String uuid = UUID.randomUUID().toString();
                 memberDAO.updateUuid(userid, uuid);
                 memberVO.setUuid(uuid);
+
+                Cookie remberCookie = new Cookie("remember-me" , uuid);
+                remberCookie.setMaxAge(60*60*24*7);
+                remberCookie.setPath("/");
+                res.addCookie(remberCookie);
             }
 
             if (memberVO != null && userpassword.equals(memberVO.getUserpassword())) {
