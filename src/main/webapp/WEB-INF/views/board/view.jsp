@@ -35,13 +35,12 @@
             <div class="col-md-12 section">
                 <div class="font-weight-bold">작성일:</div>
                 <div>${board.dueDate}</div>
-                <div>${board.id}</div>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-12 text-right">
                 <button onclick="updateBoard(${board.id})" class="btn btn-primary mr-2">수정</button>
-                <button onclick="deleteBoard(${board.id})" class="btn btn-danger">삭제</button>
+                <button onclick="deleteBoard()" class="btn btn-danger">삭제</button>
             </div>
         </div>
     </c:if>
@@ -49,50 +48,35 @@
 </body>
 
 <script>
-    var param = {
-        userid : ${board.writer}
+
+    function updateBoard() {
+        window.location.href = '/board.do?action=updateForm&id=' + boardId;
     }
 
-    function updateBoard(boardId) {
-        fetch(`/board.do?action=updateForm&ID=${boardId}`, {
-            method: 'GET',
+
+
+    const param = {
+        action : "delete",
+        id : ${board.id}
+    }
+
+
+    function deleteBoard() {
+        fetch(`/board.do`, {
+            method: 'POST',
+            body: JSON.stringify(param),
             headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/board.do?action=updateForm&ID=' + boardId;
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        }).then(res => res.json())
+            .then(json => {
+                console.log("json", json);
+                if(json.status == 0){
+                    alert("회원정보를 삭제 하였습니다.")
+                    location = "board.do?action=list"
                 } else {
-                    // alert("수정 불가능합니다.");
-                    console.log("response " , response)
+                    alert(json.statusMessage)
                 }
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
-            });
-    }
-
-
-    function deleteBoard(boardId) {
-        fetch(`/board.do?action=delete&ID=${boardId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // 서버로부터 받은 데이터를 처리
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('There was an error!', error);
             });
     }
 </script>

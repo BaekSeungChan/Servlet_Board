@@ -39,6 +39,7 @@ public class BoardController{
     public Object delete(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
         int updated = boardService.boardDelete(board.getId());
 
+        System.out.println("deleteUpdated " + updated);
         Map<String, Object> map = new HashMap<>();
         if(updated == 1){
             map.put("status", 0);

@@ -46,6 +46,7 @@ public class BoardServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
 
         String contentType = req.getContentType();
+        System.out.println("contentType " + contentType);
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -53,8 +54,12 @@ public class BoardServlet extends HttpServlet {
 
         if(contentType == null || contentType.startsWith("application/x-www/form-urlencoded")){
             boardDTO = objectMapper.convertValue(convertMap(req.getParameterMap()), BoardDTO.class);
+            System.out.println("content");
         } else if(contentType.startsWith("application/json")){
             boardDTO = objectMapper.readValue(req.getInputStream(), BoardDTO.class);
+            System.out.println("json");
+        } else {
+            System.out.println("nothing");
         }
 
         String action = boardDTO.getAction();

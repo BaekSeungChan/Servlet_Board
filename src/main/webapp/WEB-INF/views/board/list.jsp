@@ -44,7 +44,7 @@
         <c:forEach var="board" items="${list}">
             <div class="board-row row">
                 <div class="col-2 text-center">
-                    <a href="/board.do?action=view&ID=${board.id}">
+                    <a href="/board.do?action=view&id=${board.id}">
                             ${board.id}
                     </a>
                 </div>
