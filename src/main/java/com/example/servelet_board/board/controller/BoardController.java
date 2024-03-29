@@ -5,21 +5,21 @@ import com.example.servelet_board.board.service.BoardService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+//import com.example.servelet_board.board.dto.BoardDTO;boardport javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BoardController{
 
     BoardService boardService = new BoardService();
 
-    public String main(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/board/main.jsp").forward(req,res);
+    public Object main(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
         return "main";
     }
 
-    public String list(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public Object list(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
          String searchkey = req.getParameter("searchKey");
          List<BoardDTO> list = boardService.boardFindAll(searchkey);
 
@@ -28,70 +28,71 @@ public class BoardController{
         return "list";
     }
 
-    public String view(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public Object view(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
 
-        Long ID = Long.parseLong(req.getParameter("ID"));
-        BoardDTO boardDTO = boardService.boardDetail(ID);
-
+        BoardDTO boardDTO = boardService.boardDetail(board.getId());
         req.setAttribute("board", boardDTO);
 
         return "view";
     }
 
-    public String delete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Long ID = Long.parseLong(req.getParameter("ID"));
-        boardService.boardDelete(ID);
+    public Object delete(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
+        int updated = boardService.boardDelete(board.getId());
 
-        return "redirect:board.do?action=list";
+        Map<String, Object> map = new HashMap<>();
+        if(updated == 1){
+            map.put("status", 0);
+        } else {
+            map.put("status", -99);
+            map.put("statusMessage", "회원 정보 삭제 실패하였습니다.");
+        }
+        return map;
     }
 
-    public String updateForm(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Long ID = Long.parseLong(req.getParameter("ID"));
+    public Object updateForm(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
 
-        BoardDTO boardDTO = boardService.boardDetail(ID);
-
-        req.setAttribute("board", boardDTO);
+        BoardDTO boardDTO = boardService.boardDetail(board.getId());
 
         return "updateForm";
     }
 
-    public String update(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        Long ID = Long.parseLong(req.getParameter("ID"));
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-        String writer = req.getParameter("writer");
 
-        BoardDTO boardDTO = BoardDTO.builder()
-                .title(title)
-                .content(content)
-                .writer(writer)
-                .build();
+    public Object update(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
 
-        boardService.boardUpdate(boardDTO, ID);
+        int updated  = boardService.boardUpdate(board, board.getId());
 
-        return "redirect:board.do?action=list";
+        Map<String, Object> map = new HashMap<>();
+
+        if(updated == 1){
+            map.put("status", 0);
+        } else {
+            map.put("status", -99);
+            map.put("statusMessage", "회원 가입이 실패하였습니다.");
+        }
+
+        return map;
     }
 
-    public String insertForm(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public Object insertForm(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
         return "insertForm";
     }
 
-    public String insert(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    public Object insert(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
+        Map<String, Object> map = new HashMap<>();
 
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-        String writer = req.getParameter("writer");
-        HttpSession httpSession = req.getSession();
-        String userid = (String) httpSession.getAttribute("userid");
+        if(board.getUserid() == null || board.getUserid().length() == 0){
+            map.put("status", -1);
+            map.put("statusMessage", "사용자 아이디는 null이거나 길이가 0인 문자열을 사용할 수 없습니다.");
+        } else {
+            int updated = boardService.boardInsert(board);
 
-        BoardDTO boardDTO = BoardDTO.builder()
-                .title(title)
-                .content(content)
-                .writer(writer)
-                .userid(userid)
-                .build();
-
-        boardService.boardInsert(boardDTO);
-        return "redirect:board.do?action=list";
+            if(updated == 1){
+                map.put("status", 0);
+            } else {
+                map.put("status", -99);
+                map.put("statusMessage", "회원 가입이 실패하였습니다.");
+            }
+        }
+        return map;
     }
 }

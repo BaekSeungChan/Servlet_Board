@@ -14,8 +14,8 @@ ext {
     junitVersion = '5.9.2'
 }
 
-sourceCompatibility = "14"
-targetCompatibility = "14"
+sourceCompatibility = "16"
+targetCompatibility = "16"
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -40,6 +40,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation 'org.modelmapper:modelmapper:2.3.8'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 
 }
 

@@ -70,7 +70,7 @@ public class BoardDAO {
                         .id(rs.getLong("id"))
                         .title(rs.getString("title"))
                         .content(rs.getString("content"))
-                        .writer(rs.getString("writer"))
+                        .writer(rs.getString("userid"))
                         .dueDate(rs.getDate("dueDate").toLocalDate())
                         .build();
 
@@ -96,7 +96,7 @@ public class BoardDAO {
                         .id(rs.getLong("id"))
                         .title(rs.getString("title"))
                         .content(rs.getString("content"))
-                        .writer(rs.getString("writer"))
+                        .writer(rs.getString("userid"))
                         .dueDate(rs.getDate("dueDate").toLocalDate())
                         .build();
             }

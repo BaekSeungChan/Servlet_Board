@@ -35,16 +35,65 @@
             <div class="col-md-12 section">
                 <div class="font-weight-bold">작성일:</div>
                 <div>${board.dueDate}</div>
+                <div>${board.id}</div>
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-md-12 text-right">
-                <a href="/board.do?action=updateForm&ID=${board.id}" class="btn btn-primary mr-2">수정</a>
-                <a href="/board.do?action=delete&ID=${board.id}" class="btn btn-danger">삭제</a>
+                <button onclick="updateBoard(${board.id})" class="btn btn-primary mr-2">수정</button>
+                <button onclick="deleteBoard(${board.id})" class="btn btn-danger">삭제</button>
             </div>
         </div>
     </c:if>
 </div>
-
 </body>
+
+<script>
+    var param = {
+        userid : ${board.writer}
+    }
+
+    function updateBoard(boardId) {
+        fetch(`/board.do?action=updateForm&ID=${boardId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/board.do?action=updateForm&ID=' + boardId;
+                } else {
+                    // alert("수정 불가능합니다.");
+                    console.log("response " , response)
+                }
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+
+
+    function deleteBoard(boardId) {
+        fetch(`/board.do?action=delete&ID=${boardId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 서버로부터 받은 데이터를 처리
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was an error!', error);
+            });
+    }
+</script>
 </html>

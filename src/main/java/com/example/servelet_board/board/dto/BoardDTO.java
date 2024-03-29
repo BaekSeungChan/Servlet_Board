@@ -17,4 +17,6 @@ public class BoardDTO {
     private String writer;
     private LocalDate dueDate;
     private String userid;
+
+    private String action;
 }
