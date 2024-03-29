@@ -18,6 +18,7 @@ public class MemberDAO {
     private static PreparedStatement memberDetail = null;
     private static PreparedStatement adminDelete = null;
     private static PreparedStatement updateUuid = null;
+    private static PreparedStatement useridBoard = null;
 
 
     String jspPage = null;
@@ -86,6 +87,8 @@ public class MemberDAO {
             memberUpdate.setLong(7, membernum);
             memberUpdate.executeUpdate();
 
+
+
             hobbyInsert = conn.prepareStatement("INSERT INTO memberhobby (membernum, hobbyname) VALUES (?, ?)");
             for (String h : hobby) {
                 hobbyInsert.setLong(1, membernum);
@@ -117,7 +120,7 @@ public class MemberDAO {
     }
 
 
-    public void insert(MemberVO memberVO, String[] str) {
+    public void signUp(MemberVO memberVO, String[] str) {
         Connection conn = null;
         PreparedStatement memberInsert = null;
         PreparedStatement hobbyInsert = null;
@@ -149,7 +152,7 @@ public class MemberDAO {
                     hobbyInsert.executeUpdate();
                 }
             }
-
+            
             conn.commit();
         } catch (SQLException e) {
             if (conn != null) {

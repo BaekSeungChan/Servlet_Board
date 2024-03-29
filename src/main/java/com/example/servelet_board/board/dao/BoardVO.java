@@ -17,4 +17,5 @@ public class BoardVO {
     private String content; // 내용
     private String writer; // 작성자
     private LocalDate dueDate; // 작성 날짜
+    private String userid; // FK
 }

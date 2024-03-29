@@ -24,7 +24,6 @@ public class BoardService {
 
         return boards.stream().map(vo -> modelMapper.map(vo, BoardDTO.class))
                 .collect(Collectors.toList());
-
     }
 
     public BoardDTO boardDetail(Long id){

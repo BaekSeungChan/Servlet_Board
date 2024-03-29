@@ -23,7 +23,7 @@ public class MemberTest {
                 .build();
 
         String[] str = new String[]{"축구", "농구", "야구"};
-        memberDAO.insert(memberVO, str);
+        memberDAO.signUp(memberVO, str);
     }
 
     @Test

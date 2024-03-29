@@ -6,6 +6,7 @@ import com.example.servelet_board.board.service.BoardService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -80,11 +81,15 @@ public class BoardController{
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String writer = req.getParameter("writer");
+        HttpSession httpSession = req.getSession();
+        String userid = (String) httpSession.getAttribute("userid");
 
         BoardDTO boardDTO = BoardDTO.builder()
                 .title(title)
                 .content(content)
-                .writer(writer).build();
+                .writer(writer)
+                .userid(userid)
+                .build();
 
         boardService.boardInsert(boardDTO);
         return "redirect:board.do?action=list";

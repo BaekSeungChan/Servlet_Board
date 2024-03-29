@@ -20,7 +20,7 @@ public class BoardDAO {
 
     static {
         try {
-            boardInsert = conn.prepareStatement("insert into boards (title, content, writer, dueDate) values (?, ?, ?, ?)");
+            boardInsert = conn.prepareStatement("insert into boards (title, content, writer, dueDate,userid) values (?, ?, ?, ?,?)");
             boardFindAll = conn.prepareStatement("select * from boards");
             boardSearch = conn.prepareStatement("select * from boards where title like ? ");
             boardDetail = conn.prepareStatement("select * from boards where id = ?");
@@ -39,6 +39,7 @@ public class BoardDAO {
             boardInsert.setString(2, boardVO.getContent());
             boardInsert.setString(3, boardVO.getWriter());
             boardInsert.setDate(4, Date.valueOf(LocalDate.now()));
+            boardInsert.setString(5, boardVO.getUserid());
 
             updated = boardInsert.executeUpdate();
 

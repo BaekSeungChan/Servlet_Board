@@ -178,7 +178,7 @@ public class MemberController {
         String[] hobbies = req.getParameterValues("hobby");
 
         if (password2 != null && password2.equals(password1)) {
-            memberDAO.insert(memberVO, hobbies);
+            memberDAO.signUp(memberVO, hobbies);
             jspPage = "redirect:/board.do?action=list";
         } else {
             req.getRequestDispatcher("/WEB-INF/views/members/LoginError.jsp").forward(req, res);
