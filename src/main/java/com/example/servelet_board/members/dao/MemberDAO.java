@@ -50,13 +50,17 @@ public class MemberDAO {
 
     public void adminDelete(int membernum){
         try{
-            adminDelete.setInt(1, membernum);
+            // 회원과 관련된 hobby 레코드 삭제
+            PreparedStatement deleteHobby = conn.prepareStatement("DELETE FROM memberhobby WHERE membernum = ?");
+            deleteHobby.setInt(1, membernum);
+            deleteHobby.executeUpdate();
 
+            // 회원 레코드 삭제
+            adminDelete.setInt(1, membernum);
             adminDelete.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void updateProfile(MemberVO memberVO, String[] hobby, int membernum) {
