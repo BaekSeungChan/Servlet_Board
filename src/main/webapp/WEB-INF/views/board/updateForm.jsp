@@ -14,7 +14,7 @@
     <h2 class="text-center mb-4">수정하기</h2>
     <form action="/board.do" method="POST">
         <input type="hidden" name="action" value="update">
-        <input type="hidden" name="ID" value="${board.id}">
+        <input type="hidden" name="id" value="${board.id}">
 
         <div class="form-group">
             <label for="title">제목</label>
@@ -32,11 +32,42 @@
         </div>
 
         <div class="text-right">
-            <button type="submit" class="btn btn-primary mr-2">수정</button>
+            <button onclick="updateButton()" class="btn btn-primary mr-2">수정</button>
             <a href="/board.do?action=list" class="btn btn-secondary">취소</a>
         </div>
     </form>
 </div>
+
+<script>
+
+    const title = document.getElementById("title");
+    const content = document.getElementById("content");
+
+    function updateButton(){
+
+        const param = {
+            action: "update",
+            title : title.value,
+            content : content.value,
+        }
+
+        fetch(`/board.do`, {
+            method: 'POST',
+            body: JSON.stringify(param),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        }).then(res => res.json())
+            .then(json => {
+                if(json.status == 0){
+                    alert("수정 완료")
+                    location.href = "board.do?action=list"
+                } else {
+                    alert(json.statusMessage)
+                }
+            });
+    }
+</script>
 
 </body>
 </html>

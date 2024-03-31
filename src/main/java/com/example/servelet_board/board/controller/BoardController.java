@@ -30,19 +30,17 @@ public class BoardController{
 
     public Object view(HttpServletRequest req, BoardDTO boardDTO) throws ServletException, IOException {
         Long getId = Long.parseLong(String.valueOf(boardDTO.getId()));
-        boardService.boardDetail(getId);
-        req.setAttribute("board", boardDTO);
+        BoardDTO board = boardService.boardDetail(getId);
 
+        req.setAttribute("board", board);
         return "view";
     }
 
     public Object delete(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
         int updated = boardService.boardDelete(board.getId());
 
-        System.out.println("controelr " + board);
-
-        System.out.println("deleteUpdated " + updated);
         Map<String, Object> map = new HashMap<>();
+
         if(updated == 1){
             map.put("status", 0);
         } else {
@@ -52,9 +50,11 @@ public class BoardController{
         return map;
     }
 
-    public Object updateForm(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
+    public Object updateForm(HttpServletRequest req, BoardDTO boardDTO) throws ServletException, IOException {
+        Long getId = Long.parseLong(String.valueOf(boardDTO.getId()));
+        BoardDTO board = boardService.boardDetail(getId);
 
-        BoardDTO boardDTO = boardService.boardDetail(board.getId());
+        req.setAttribute("board", board);
 
         return "updateForm";
     }
@@ -62,15 +62,18 @@ public class BoardController{
 
     public Object update(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
 
+        System.out.println("1111 " + board);
+        System.out.println("1111 " + board.getId());
         int updated  = boardService.boardUpdate(board, board.getId());
 
         Map<String, Object> map = new HashMap<>();
 
+        System.out.println("dkdkdkdkaaa" + updated);
         if(updated == 1){
             map.put("status", 0);
         } else {
             map.put("status", -99);
-            map.put("statusMessage", "회원 가입이 실패하였습니다.");
+            map.put("statusMessage", "수정이 실패하였습니다.");
         }
 
         return map;

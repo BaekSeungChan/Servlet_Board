@@ -49,8 +49,8 @@
 
 <script>
 
-    function updateBoard() {
-        window.location.href = '/board.do?action=updateForm&id=' + boardId;
+    function updateBoard(boardId) {
+        location = '/board.do?action=updateForm&id=' + boardId;
     }
 
     function deleteBoard() {
@@ -71,7 +71,7 @@
                 console.log("json", json);
                 if(json.status == 0){
                     alert("회원정보를 삭제 하였습니다.")
-                    location = "board.do?action=list"
+                    location.href = "board.do?action=list"
                 } else {
                     alert(json.statusMessage)
                 }
