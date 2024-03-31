@@ -12,14 +12,11 @@ import java.time.LocalDate;
 @Builder
 @ToString
 public class BoardDTO {
-    @JsonIgnore
     private Long id;
-
     private String title;
     private String content;
     private String writer;
 
-    @JsonIgnore
     private LocalDate dueDate;
 
     private String userid;

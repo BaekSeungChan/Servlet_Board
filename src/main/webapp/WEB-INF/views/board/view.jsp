@@ -53,15 +53,13 @@
         window.location.href = '/board.do?action=updateForm&id=' + boardId;
     }
 
-
-
-    const param = {
-        action : "delete",
-        id : ${board.id}
-    }
-
-
     function deleteBoard() {
+
+        const param = {
+            action : "delete",
+            id : ${board.id}
+        }
+
         fetch(`/board.do`, {
             method: 'POST',
             body: JSON.stringify(param),

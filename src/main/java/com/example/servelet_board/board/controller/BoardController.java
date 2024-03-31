@@ -28,9 +28,9 @@ public class BoardController{
         return "list";
     }
 
-    public Object view(HttpServletRequest req, Long id) throws ServletException, IOException {
-
-        BoardDTO boardDTO = boardService.boardDetail(id);
+    public Object view(HttpServletRequest req, BoardDTO boardDTO) throws ServletException, IOException {
+        Long getId = Long.parseLong(String.valueOf(boardDTO.getId()));
+        boardService.boardDetail(getId);
         req.setAttribute("board", boardDTO);
 
         return "view";
@@ -38,6 +38,8 @@ public class BoardController{
 
     public Object delete(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
         int updated = boardService.boardDelete(board.getId());
+
+        System.out.println("controelr " + board);
 
         System.out.println("deleteUpdated " + updated);
         Map<String, Object> map = new HashMap<>();
