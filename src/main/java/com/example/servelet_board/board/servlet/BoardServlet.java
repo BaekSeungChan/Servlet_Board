@@ -52,24 +52,24 @@ public class BoardServlet extends HttpServlet {
         ObjectMapper objectMapper = new ObjectMapper();
 
         BoardDTO boardDTO = null;
+        System.out.println("chan " + boardDTO );
 
         if(contentType == null || contentType.startsWith("application/x-www/form-urlencoded")){
             boardDTO = objectMapper.convertValue(convertMap(req.getParameterMap()), BoardDTO.class);
         } else if(contentType.startsWith("application/json")){
             boardDTO = objectMapper.readValue(req.getInputStream(), BoardDTO.class);
             System.out.println("dkdkdk " + boardDTO);
-            System.out.println("json11");
         } else {
             System.out.println("nothing");
         }
 
-        String action = boardDTO.getAction();
 
-        System.out.println("acmmmion " + action);
+        String action = boardDTO.getAction();
+        Long getID = Long.parseLong(req.getParameter("id"));
 
         Object result = switch(action) {
             case "list" -> boardController.list(req, boardDTO);
-            case "view" -> boardController.view(req, boardDTO);
+            case "view" -> boardController.view(req, getID);
             case "delete" -> boardController.delete(req, boardDTO);
             case "update" -> boardController.update(req, boardDTO);
             case "updateForm" -> boardController.updateForm(req, boardDTO);

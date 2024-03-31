@@ -28,9 +28,9 @@ public class BoardController{
         return "list";
     }
 
-    public Object view(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
+    public Object view(HttpServletRequest req, Long id) throws ServletException, IOException {
 
-        BoardDTO boardDTO = boardService.boardDetail(board.getId());
+        BoardDTO boardDTO = boardService.boardDetail(id);
         req.setAttribute("board", boardDTO);
 
         return "view";
@@ -79,15 +79,15 @@ public class BoardController{
     }
 
     public Object insert(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
-        Map<String, Object> result = new HashMap<>();
-
         int updated = boardService.boardInsert(board);
+
+        Map<String, Object> result = new HashMap<>();
 
         if (updated == 1) {
             result.put("status", 0);
         } else {
-            result.put("status", -1);
-            result.put("errorMessage", "글 등록에 실패했습니다. 다시 시도해주세요."); // 실패 시 오류 메시지
+            result.put("status", -99);
+            result.put("errorMessage", "글 등록에 실패했습니다. 다시 시도해주세요.");
         }
 
         return result;

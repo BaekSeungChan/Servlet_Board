@@ -40,22 +40,25 @@
         <div class="col-2 bg-dark-gray text-center">작성자</div>
         <div class="col-2 bg-dark-gray text-center">작성시간</div>
     </div>
-    <div class="board-content">
+    <form class="board-content">
         <c:forEach var="board" items="${list}">
             <div class="board-row row">
-                <div class="col-2 text-center">
-                    <a href="/board.do?action=view&id=${board.id}">
-                            ${board.id}
-                    </a>
-                </div>
+                <div onclick="viewBoard(${board.id})" class="col-2 text-center">${board.id}</div>
                 <div class="col-2 text-center">${board.title}</div>
                 <div class="col-4 text-center">${board.content}</div>
                 <div class="col-2 text-center">${board.writer}</div>
                 <div class="col-2 text-center">${board.dueDate}</div>
             </div>
         </c:forEach>
-    </div>
+    </form>
 </div>
 
+<%--<a href="/board.do?action=view&id=${board.id}">--%>
+
+<script>
+    function viewBoard(boardId) {
+        window.location.href = '/board.do?action=view&id=' + boardId;
+    }
+</script>
 </body>
 </html>

@@ -45,14 +45,15 @@
     function setUserId() {
         // 세션에 저장된 userid를 가져옴
         const userid = '<%= session.getAttribute("userid") %>';
-        // writer 필드에 세션에 저장된 userid를 넣음
         writer.value = userid;
     }
 
     // 페이지 로드 시 세션에 저장된 userid를 writer 필드에 넣음
     window.onload = setUserId;
 
+
     function insertButton(){
+
         const param = {
             action: "insert",
             title : title.value,
@@ -61,24 +62,22 @@
             userid : '<%= session.getAttribute("userid") %>'
         }
 
-            fetch(`/board.do`, {
-                method: 'POST',
-                body: JSON.stringify(param),
-                headers : {"Content-type" : "application/json; charset=utf-8"}
-            }).then(res => {
-                if(res.ok){
-                    return res.json()
+        fetch(`/board.do`, {
+            method: 'POST',
+            body: JSON.stringify(param),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        }).then(res => res.json())
+            .then(json => {
+                console.log("json", json);
+                if(json.status == 0){
+                    alert("글 등록 완료")
+                    location = "board.do?action=list"
                 } else {
-                    throw  new Error("Network response was not ok")
+                    alert(json.statusMessage)
                 }
-            }).then(data => {
-                console.log(data);
-                window.location.href = "/board.do?action=list"
-            }).catch(error => {
-                console.error('Error', error);
-                alert("등록에 실패했습니다. 다시 시도해주세요.");
-            })
-
+            });
     }
 </script>
 </html>
