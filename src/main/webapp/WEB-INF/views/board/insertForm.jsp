@@ -12,9 +12,7 @@
 
 <div class="container mt-5">
     <h2 class="text-center mb-4">글쓰기</h2>
-    <form action="/board.do" method="POST">
-        <input type="hidden" name="action" value="insert">
-
+    <form  action="/board.do" method="post">
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" name="title" required>
@@ -27,15 +25,60 @@
 
         <div class="form-group">
             <label for="writer">작성자</label>
-            <input type="text" class="form-control" id="writer" name="writer" required>
+            <input type="text" class="form-control" id="writer" name="writer" readonly>
         </div>
 
         <div class="text-right">
-            <button type="submit" class="btn btn-primary mr-2">등록</button>
+            <button onclick="insertButton()" class="btn btn-primary mr-2">등록</button>
             <a href="/board.do?action=list" class="btn btn-secondary">취소</a>
         </div>
     </form>
 </div>
-
 </body>
+
+<script>
+
+    const title = document.getElementById("title");
+    const content = document.getElementById("content");
+    const writer = document.getElementById("writer");
+
+    function setUserId() {
+        // 세션에 저장된 userid를 가져옴
+        const userid = '<%= session.getAttribute("userid") %>';
+        // writer 필드에 세션에 저장된 userid를 넣음
+        writer.value = userid;
+    }
+
+    // 페이지 로드 시 세션에 저장된 userid를 writer 필드에 넣음
+    window.onload = setUserId;
+
+    function insertButton(){
+        const param = {
+            action: "insert",
+            title : title.value,
+            content : content.value,
+            writer : writer.value,
+            userid : '<%= session.getAttribute("userid") %>'
+        }
+
+            fetch(`/board.do`, {
+                method: 'POST',
+                body: JSON.stringify(param),
+                headers : {"Content-type" : "application/json; charset=utf-8"}
+            }).then(res => {
+                if(res.ok){
+                    return res.json()
+                } else {
+                    throw  new Error("Network response was not ok")
+                }
+            }).then(data => {
+                console.log(data);
+                window.location.href = "/board.do?action=list"
+            }).catch(error => {
+                console.error('Error', error);
+                alert("등록에 실패했습니다. 다시 시도해주세요.");
+            })
+
+    }
+</script>
 </html>

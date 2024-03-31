@@ -79,21 +79,19 @@ public class BoardController{
     }
 
     public Object insert(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
 
-        if(board.getUserid() == null || board.getUserid().length() == 0){
-            map.put("status", -1);
-            map.put("statusMessage", "사용자 아이디는 null이거나 길이가 0인 문자열을 사용할 수 없습니다.");
+        int updated = boardService.boardInsert(board);
+
+        if (updated == 1) {
+            result.put("status", 0);
         } else {
-            int updated = boardService.boardInsert(board);
-
-            if(updated == 1){
-                map.put("status", 0);
-            } else {
-                map.put("status", -99);
-                map.put("statusMessage", "회원 가입이 실패하였습니다.");
-            }
+            result.put("status", -1);
+            result.put("errorMessage", "글 등록에 실패했습니다. 다시 시도해주세요."); // 실패 시 오류 메시지
         }
-        return map;
+
+        return result;
     }
+
 }
+

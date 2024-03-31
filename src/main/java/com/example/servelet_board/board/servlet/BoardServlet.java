@@ -45,6 +45,7 @@ public class BoardServlet extends HttpServlet {
     private void doService(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
 
+
         String contentType = req.getContentType();
         System.out.println("contentType " + contentType);
 
@@ -54,10 +55,10 @@ public class BoardServlet extends HttpServlet {
 
         if(contentType == null || contentType.startsWith("application/x-www/form-urlencoded")){
             boardDTO = objectMapper.convertValue(convertMap(req.getParameterMap()), BoardDTO.class);
-            System.out.println("content");
         } else if(contentType.startsWith("application/json")){
             boardDTO = objectMapper.readValue(req.getInputStream(), BoardDTO.class);
-            System.out.println("json");
+            System.out.println("dkdkdk " + boardDTO);
+            System.out.println("json11");
         } else {
             System.out.println("nothing");
         }
