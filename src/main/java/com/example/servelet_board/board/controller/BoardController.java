@@ -20,8 +20,8 @@ public class BoardController{
     }
 
     public Object list(HttpServletRequest req, BoardDTO board) throws ServletException, IOException {
-         String searchkey = req.getParameter("searchKey");
-         List<BoardDTO> list = boardService.boardFindAll(searchkey);
+         String searchKey = board.getSearchKey();
+         List<BoardDTO> list = boardService.boardFindAll(searchKey);
 
          req.setAttribute("list", list);
 

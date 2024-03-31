@@ -16,7 +16,7 @@
 <body>
 
 <nav class="navbar navbar-expand-sm navbar-dark fixed-top">
-    <a class="navbar-brand" href="http://localhost:8080">Today Good</a>
+    <a class="navbar-brand" href="http://localhost:8080">News Room</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -24,8 +24,8 @@
     </div>
     <form class="form-inline" action="/board.do" method="GET">
         <input type="hidden" name="action" value="list">
-        <input class="form-control mr-sm-2" type="text" name="searchKey" placeholder="Search">
-        <button class="search-button" type="submit">Search</button>
+        <input id="searchKey" class="form-control mr-sm-2" type="text" name="searchKey" placeholder="Search">
+        <button onclick="SearchButton()" class="search-button" type="submit">Search</button>
     </form>
 </nav>
 
@@ -55,5 +55,34 @@
     </form>
 </div>
 
+<script>
+
+    const search = document.getElementById("search");
+
+    function SearchButton(){
+
+        const param = {
+            action: "list",
+            searchKey : searchKey.value,
+        }
+
+        fetch(`/board.do`, {
+            method: 'POST',
+            body: JSON.stringify(param),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+        }).then(res => res.json())
+            .then(json => {
+                console.log("json", json);
+                if(json.status == 0){
+                    alert("글 등록 완료")
+                    location = "board.do?action=list"
+                } else {
+                    alert(json.statusMessage)
+                }
+            });
+    }
+</script>
 </body>
 </html>
