@@ -34,7 +34,7 @@
                     <input type="hidden" name="membernum" value="${member.membernum}" class="form-control"/>
                     <tr>
                         <th scope="row" class="font-weight-bold">UserID:</th>
-                        <td><input type="text" name="userid" value="${member.userid}" class="form-control"/></td>
+                        <td><input type="text" name="userid" value="${member.userid}" class="form-control" readonly/></td>
                     </tr>
                     <tr>
                         <th scope="row" class="font-weight-bold">Username:</th>

@@ -14,7 +14,6 @@
     <h2 class="text-center mb-4">수정하기</h2>
     <form action="/board.do" method="POST">
         <input type="hidden" name="action" value="update">
-        <input type="hidden" name="id" value="${board.id}">
 
         <div class="form-group">
             <label for="title">제목</label>
@@ -47,6 +46,7 @@
 
         const param = {
             action: "update",
+            id: ${board.id},
             title : title.value,
             content : content.value,
         }

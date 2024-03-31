@@ -83,15 +83,15 @@ public class BoardServlet extends HttpServlet {
         if(result instanceof Map map){
             res.setContentType("application/json;charset=UTF-8");
             res.getWriter().append(objectMapper.writeValueAsString(map));
-            System.out.println("1");
+
         } else if(result instanceof String url){
             if (url.startsWith("redirect:")){
                 res.sendRedirect(url.substring("redirect:".length()));
-                System.out.println("2");
+
             }
             RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/board/" + url + ".jsp");
             rd.forward(req,res);
-            System.out.println("3");
+
         }
     }
 }
