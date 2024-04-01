@@ -69,9 +69,6 @@ public class MemberDAO {
         PreparedStatement memberUpdate = null;
         PreparedStatement hobbyInsert = null;
 
-        System.out.println("hobby : " + hobby);
-        System.out.println("membernum : " + membernum);
-        System.out.println("memberVo " + memberVO);
 
         try {
             conn = DBConnectionUtil.DATABASE.getConnection();
