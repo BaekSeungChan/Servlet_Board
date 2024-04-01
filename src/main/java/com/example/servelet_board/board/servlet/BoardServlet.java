@@ -53,13 +53,11 @@ public class BoardServlet extends HttpServlet {
 
         BoardDTO boardDTO = null;
 
-        System.out.println("chan " + boardDTO );
 
         if(contentType == null || contentType.startsWith("application/x-www-form-urlencoded")){
             boardDTO = objectMapper.convertValue(convertMap(req.getParameterMap()), BoardDTO.class);
         } else if(contentType.startsWith("application/json")){
             boardDTO = objectMapper.readValue(req.getInputStream(), BoardDTO.class);
-            System.out.println("1111" + boardDTO);
 
         } else {
             System.out.println("nothing");

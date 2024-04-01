@@ -68,7 +68,6 @@ public class BoardController{
 
         Map<String, Object> map = new HashMap<>();
 
-        System.out.println("dkdkdkdkaaa" + updated);
         if(updated == 1){
             map.put("status", 0);
         } else {

@@ -29,7 +29,6 @@ public class MemberServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
 
         String action = req.getParameter("action");
-        System.out.println("SignUp = " + action);
 
         String jspPage = null;
 
